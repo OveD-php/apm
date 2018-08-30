@@ -1,8 +1,8 @@
 <?php
 
-return [
-    // Filtering
+use Vistik\Apm\Sampling\AlwaysOn;
 
+return [
     /*
       |--------------------------------------------------------------------------
       | Save the requestedAt attributes on requests in this timezone. Default: UTC
@@ -14,10 +14,10 @@ return [
       |--------------------------------------------------------------------------
       | If you get alot of requests log logging could take up alot of disk space
       | sampling enables you to record e.g. 10% of the requests
+      | Valid values: 0 (off) to 100 (always on)
       |--------------------------------------------------------------------------
     */
-    'sampling' => 100,
-
+    'sampling' => new AlwaysOn(),
 
     /*
       |--------------------------------------------------------------------------

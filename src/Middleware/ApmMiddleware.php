@@ -11,6 +11,7 @@ use Vistik\Apm\Jobs\StoreQueries;
 use Vistik\Apm\Jobs\StoreRequestData;
 use Vistik\Apm\Request\RequestContext;
 use Vistik\Apm\Request\RequestResponseData;
+use Vistik\Apm\Sampling\AlwaysOff;
 
 class ApmMiddleware
 {
@@ -33,7 +34,7 @@ class ApmMiddleware
     public function __construct(RequestContext $requestContext)
     {
         $this->requestContext = $requestContext;
-        $this->sampling = config('apm.samling', 100);
+        $this->sampling = config('apm.samling', new AlwaysOff());
     }
 
     /**
@@ -46,19 +47,16 @@ class ApmMiddleware
     public function handle($request, Closure $next)
     {
         $requestId = $this->requestContext->getId();
-        $userId = Auth::user() ? Auth::user()->id : 'n/a';
 
         $monolog = Log::getMonolog();
-        $monolog->pushProcessor(function ($record) use ($userId, $requestId) {
-            $record['extra']['user'] = $userId;
+        $monolog->pushProcessor(function ($record) use ($requestId) {
             $record['extra']['request_id'] = $requestId;
-
             return $record;
         });
 
         $response = $next($request);
-        
-        if (!$this->shouldSample()){
+
+        if (!$this->sampling->shouldSample()){
             return $response;
         }
 
