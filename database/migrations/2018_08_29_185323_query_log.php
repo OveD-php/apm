@@ -18,7 +18,7 @@ class QueryLog extends Migration
             $table->string('sql');
             $table->float('time_ms');
             $table->string('connection');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
     }
 
