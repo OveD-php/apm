@@ -34,7 +34,6 @@ class ApmMiddleware
     public function __construct(RequestContext $requestContext)
     {
         $this->requestContext = $requestContext;
-        $this->sampling = config('apm.samling', new AlwaysOff());
     }
 
     /**
@@ -46,6 +45,7 @@ class ApmMiddleware
      */
     public function handle($request, Closure $next)
     {
+        $this->sampling = config('apm.samling', new AlwaysOff());
         $requestId = $this->requestContext->getId();
 
         $monolog = Log::getMonolog();
