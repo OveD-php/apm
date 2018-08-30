@@ -2,7 +2,7 @@
 
 namespace Vistik\Apm\Sampling;
 
-class ChanceSample implements SamplerInterface
+class Chance implements SamplerInterface
 {
     /**
      * @var int
