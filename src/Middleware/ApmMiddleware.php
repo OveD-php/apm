@@ -23,11 +23,6 @@ class ApmMiddleware
     private $requestContext;
 
     /**
-     * @var integer
-     */
-    private $sampling;
-
-    /**
      * ApmMiddleware constructor.
      * @param RequestContext $requestContext
      */
@@ -45,7 +40,7 @@ class ApmMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $this->sampling = config('apm.samling', new AlwaysOff());
+        $sampler = config('apm.sampler', new AlwaysOff());
         $requestId = $this->requestContext->getId();
 
         $monolog = Log::getMonolog();
@@ -56,7 +51,7 @@ class ApmMiddleware
 
         $response = $next($request);
 
-        if (!$this->sampling->shouldSample()){
+        if (!$sampler->shouldSample()){
             return $response;
         }
 
