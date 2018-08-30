@@ -5,6 +5,7 @@ namespace Vistik\Apm\ServiceProvider;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Vistik\Apm\Commands\CleanUp;
 use Vistik\Apm\Listeners\QueryListener;
 use Vistik\Apm\Request\RequestContext;
 
@@ -18,6 +19,12 @@ class ApmServiceProvider extends ServiceProvider
         ]);
 
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CleanUp::class,
+            ]);
+        }
     }
 
     public function register()

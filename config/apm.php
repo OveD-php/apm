@@ -13,8 +13,10 @@ return [
     /*
       |--------------------------------------------------------------------------
       | If you get alot of requests log logging could take up alot of disk space
-      | sampling enables you to record e.g. 10% of the requests
-      | Valid values: 0 (off) to 100 (always on)
+      | sampling enables you to record only a potion of your requests.
+      | Out-of-the-box options: AlwaysOn, AlwaysOff, Change() takes a 0 to 100%
+      | You could implement your on sampler (lets say to only record requests from
+      | from your enterprise customers)
       |--------------------------------------------------------------------------
     */
     'sampling' => new AlwaysOn(),
@@ -52,5 +54,5 @@ return [
       | Clean up database after x days (both request & queries)
       |--------------------------------------------------------------------------
     */
-    'keepLogFor' => 30,
+    'keepRecordsForDays' => 30,
 ];
