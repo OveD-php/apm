@@ -33,7 +33,7 @@ class CleanUp extends Command
         $deleteOlderThan = Carbon::parse('-' . $days . ' days', new DateTimeZone('UTC'));
 
         Request::where('requested_at', '<', $deleteOlderThan)->delete();
-        Query::where('requested_at', '<', $deleteOlderThan)->delete();
+        Query::where('executed_at', '<', $deleteOlderThan)->delete();
 
     }
 }

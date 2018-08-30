@@ -10,6 +10,5 @@ class Request extends Model
 
     protected $guarded = ['id'];
     protected $table = 'apm_requests';
-
     protected $dates = ['requested_at'];
 }
