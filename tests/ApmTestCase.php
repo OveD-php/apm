@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Orchestra\Testbench\TestCase;
+use Vistik\Apm\Sampling\AlwaysOn;
 use Vistik\Apm\ServiceProvider\ApmServiceProvider;
 
 class ApmTestCase extends TestCase
@@ -10,7 +11,7 @@ class ApmTestCase extends TestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  \Illuminate\Foundation\Application $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -22,6 +23,10 @@ class ApmTestCase extends TestCase
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+
+        $app['config']->set('apm', [
+            'sampler'   => new AlwaysOn(),
+        ]);
     }
 
     /**
@@ -30,7 +35,7 @@ class ApmTestCase extends TestCase
      * In a normal app environment these would be added to the 'providers' array in
      * the config/app.php file.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  \Illuminate\Foundation\Application $app
      *
      * @return array
      */
@@ -39,5 +44,13 @@ class ApmTestCase extends TestCase
         return [
             ApmServiceProvider::class,
         ];
+    }
+
+    /**
+     * Migrate the in memory database
+     */
+    protected function migrate()
+    {
+        $this->artisan('migrate', ['--database' => 'testbench']);
     }
 }

@@ -13,7 +13,7 @@ class ModelTest extends ApmTestCase
     public function requests_have_queries()
     {
         // Given
-        $this->artisan('migrate', ['--database' => 'testbench']);
+        $this->migrate();
 
         $requestId = Uuid::uuid4()->toString();
         $request = Request::create([
@@ -58,7 +58,7 @@ class ModelTest extends ApmTestCase
     public function queries_has_a_request()
     {
         // Given
-        $this->artisan('migrate', ['--database' => 'testbench']);
+        $this->migrate();
 
         $requestId = Uuid::uuid4()->toString();
         Request::create([
