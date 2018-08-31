@@ -79,8 +79,6 @@ class ApmMiddleware
             $this->apmContext->getStartedAt()
         );
 
-//        dd('visti');
-
         try {
             $this->dispatch(new StoreRequestData($requestResponseData));
         } catch (Exception $e) {
