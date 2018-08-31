@@ -100,10 +100,7 @@ class ApmMiddleware
         return $response;
     }
 
-    /**
-     * @return int
-     */
-    protected function getResponseTimeInMs(): int
+    protected function getResponseTimeInMs(): float
     {
         // Not defined when running tests
         if (defined('LARAVEL_START')) {
