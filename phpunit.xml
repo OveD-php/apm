@@ -16,4 +16,9 @@
     <logging>
         <log type="coverage-text" target="php://stdout"/>
     </logging>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
