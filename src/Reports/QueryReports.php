@@ -9,15 +9,13 @@ class QueryReports
 
     public function getTopSlowest(int $count)
     {
-        // select * from apm_queries  group by sql order by time_ms DESC limit 5
-
-        $queries = Query::groupBy('sql')
+        $queries = Query
+            ::with('request')
+            ->groupBy('sql')
             ->orderBy('time_ms', 'DESC')
             ->limit($count)
             ->get();
 
-        foreach ($queries as $query){
-            dump($query->toArray());
-        }
+        return $queries;
     }
 }
