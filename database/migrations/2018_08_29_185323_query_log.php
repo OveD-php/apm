@@ -14,6 +14,7 @@ class QueryLog extends Migration
     public function up()
     {
         Schema::create('apm_queries', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('request_id');
             $table->string('sql');
             $table->float('time_ms');
