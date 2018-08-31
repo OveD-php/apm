@@ -112,14 +112,4 @@ class ApmMiddleware
 
         return 0.0;
     }
-
-    protected function shouldSample(): bool
-    {
-        $random = mt_rand(0, 100);
-        if ($random <= $this->sampling){
-            return true;
-        }
-
-        return false;
-    }
 }

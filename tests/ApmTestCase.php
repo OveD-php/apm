@@ -16,6 +16,11 @@ class ApmTestCase extends TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        // Define this since running tests in laravel does not set that
+        if (!defined('LARAVEL_START')){
+            define('LARAVEL_START', microtime(true));
+        }
+
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
