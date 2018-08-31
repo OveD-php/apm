@@ -5,8 +5,8 @@ namespace Vistik\Apm\Commands;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Console\Command;
-use Vistik\Apm\Query;
-use Vistik\Apm\Request;
+use Vistik\Apm\Models\Query;
+use Vistik\Apm\Models\Request;
 
 class CleanUp extends Command
 {

@@ -3,7 +3,7 @@
 namespace Vistik\Apm\Jobs;
 
 use Illuminate\Support\Facades\Log;
-use Vistik\Apm\Request;
+use Vistik\Apm\Models\Request;
 use Vistik\Apm\Request\RequestResponseData;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

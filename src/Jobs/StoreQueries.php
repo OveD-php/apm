@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Vistik\Apm\Query;
+use Vistik\Apm\Models\Query;
 use Vistik\Apm\Request\RequestContext;
 
 class StoreQueries implements ShouldQueue
