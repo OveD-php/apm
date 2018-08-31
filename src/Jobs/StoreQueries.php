@@ -17,16 +17,16 @@ class StoreQueries implements ShouldQueue
     /**
      * @var ApmContext
      */
-    private $requestContext;
+    private $apmContext;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(ApmContext $requestContext)
+    public function __construct(ApmContext $apmContext)
     {
-        $this->requestContext = $requestContext;
+        $this->apmContext = $apmContext;
     }
 
     /**
@@ -36,7 +36,7 @@ class StoreQueries implements ShouldQueue
      */
     public function handle()
     {
-        $queries = $this->requestContext->getQueries();
+        $queries = $this->apmContext->getQueries();
 
         foreach ($queries as $query) {
             if (config('apm.saveQueriesToLog', false)){
@@ -46,7 +46,7 @@ class StoreQueries implements ShouldQueue
                 'sql'        => $query['query'],
                 'time_ms'    => $query['time_ms'],
                 'connection' => $query['connection'],
-                'request_id' => $this->requestContext->getId(),
+                'request_id' => $this->apmContext->getId(),
             ]);
         }
     }

@@ -10,16 +10,16 @@ class QueryListener
     /**
      * @var ApmContext
      */
-    private $requestContext;
+    private $apmContext;
 
     /**
      * Create the event listener.
      *
-     * @param ApmContext $requestContext
+     * @param ApmContext $apmContext
      */
-    public function __construct(ApmContext $requestContext)
+    public function __construct(ApmContext $apmContext)
     {
-        $this->requestContext = $requestContext;
+        $this->apmContext = $apmContext;
     }
 
     /**
@@ -30,6 +30,6 @@ class QueryListener
      */
     public function handle(QueryExecuted $event)
     {
-        $this->requestContext->addQuery($event->sql, $event->time, $event->bindings, $event->connectionName);
+        $this->apmContext->addQuery($event->sql, $event->time, $event->bindings, $event->connectionName);
     }
 }
