@@ -3,6 +3,7 @@
 namespace Vistik\Apm\ServiceProvider;
 
 use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Vistik\Apm\Commands\CleanUp;
@@ -31,6 +32,7 @@ class ApmServiceProvider extends ServiceProvider
     {
         $this->app->singleton(RequestContext::class);
 
+        DB::connection()->enableQueryLog();
         Event::listen(QueryExecuted::class, QueryListener::class);
     }
 }
