@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Vistik\Apm\Jobs\StoreQueries;
 use Vistik\Apm\Jobs\StoreRequestData;
-use Vistik\Apm\Request\RequestContext;
+use Vistik\Apm\Request\ApmContext;
 use Vistik\Apm\Request\RequestResponseData;
 use Vistik\Apm\Sampling\AlwaysOff;
 
@@ -18,17 +18,17 @@ class ApmMiddleware
 
     use DispatchesJobs;
     /**
-     * @var RequestContext
+     * @var ApmContext
      */
-    private $requestContext;
+    private $apmContext;
 
     /**
      * ApmMiddleware constructor.
-     * @param RequestContext $requestContext
+     * @param ApmContext $apmContext
      */
-    public function __construct(RequestContext $requestContext)
+    public function __construct(ApmContext $apmContext)
     {
-        $this->requestContext = $requestContext;
+        $this->apmContext = $apmContext;
     }
 
     /**
@@ -40,8 +40,8 @@ class ApmMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $sampler = config('apm.sampler', new AlwaysOff());
-        $requestId = $this->requestContext->getId();
+        $sampler = $this->apmContext->getSampler();
+        $requestId = $this->apmContext->getId();
 
         $monolog = Log::getMonolog();
         $monolog->pushProcessor(function ($record) use ($requestId) {
@@ -66,7 +66,7 @@ class ApmMiddleware
             ->all();
 
         $requestResponseData = new RequestResponseData(
-            $this->requestContext->getId(),
+            $this->apmContext->getId(),
             Auth::id(),
             json_encode($request->all()), // This should not be all should be getContent()
             $request->method(),
@@ -76,9 +76,10 @@ class ApmMiddleware
             $responseContent,
             $this->getResponseTimeInMs(),
             $headers,
-            $this->requestContext->getStartedAt()
+            $this->apmContext->getStartedAt()
         );
 
+//        dd('visti');
 
         try {
             $this->dispatch(new StoreRequestData($requestResponseData));
@@ -90,7 +91,7 @@ class ApmMiddleware
         }
 
         try {
-            $this->dispatch(new StoreQueries($this->requestContext));
+            $this->dispatch(new StoreQueries($this->apmContext));
         } catch (Exception $e) {
             // An exception in logging shouldn't terminate
             // the session and cause a 500 response!

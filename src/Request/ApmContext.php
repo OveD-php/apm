@@ -5,8 +5,9 @@ namespace Vistik\Apm\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
+use Vistik\Apm\Sampling\SamplerInterface;
 
-class RequestContext
+class ApmContext
 {
     /**
      * @var \Ramsey\Uuid\UuidInterface
@@ -16,12 +17,20 @@ class RequestContext
      * @var array
      */
     private $queries = [];
+    /**
+     * @var Carbon
+     */
     private $startedAt;
+    /**
+     * @var SamplerInterface
+     */
+    private $sampler;
 
-    public function __construct()
+    public function __construct(SamplerInterface $sampler)
     {
         $this->id = Uuid::uuid4();
         $this->startedAt = Carbon::now(config('apm.timezone', 'UTC'));
+        $this->sampler = $sampler;
     }
 
     public function getId(): string
@@ -52,6 +61,14 @@ class RequestContext
     }
 
     /**
+     * @return SamplerInterface
+     */
+    public function getSampler(): SamplerInterface
+    {
+        return $this->sampler;
+    }
+
+    /**
      * @param string $query
      * @param array $bindings
      * @return mixed|string
@@ -68,12 +85,12 @@ class RequestContext
 
         $sql = str_replace(['%', '?'], ['%%', "%s"], $query);
 
-        $cleanedBindings = [];
-        foreach ($bindings as $key => $binding) {
-            $cleanedBindings[$key] = DB::connection()->getPdo()->quote($binding);
-        }
+//        $cleanedBindings = [];
+//        foreach ($bindings as $key => $binding) {
+//            $cleanedBindings[$key] = DB::connection()->getPdo()->quote($binding);
+//        }
 
-        $full_sql = vsprintf($sql, $cleanedBindings);
+        $full_sql = vsprintf($sql, $bindings);
 
         return $full_sql;
     }

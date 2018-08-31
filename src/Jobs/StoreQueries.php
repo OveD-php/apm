@@ -9,13 +9,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Vistik\Apm\Models\Query;
-use Vistik\Apm\Request\RequestContext;
+use Vistik\Apm\Request\ApmContext;
 
 class StoreQueries implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     /**
-     * @var RequestContext
+     * @var ApmContext
      */
     private $requestContext;
 
@@ -24,7 +24,7 @@ class StoreQueries implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(RequestContext $requestContext)
+    public function __construct(ApmContext $requestContext)
     {
         $this->requestContext = $requestContext;
     }
