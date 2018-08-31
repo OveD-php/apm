@@ -1,6 +1,7 @@
 <?php
 
-use Vistik\Apm\Sampling\AlwaysOn;
+use Vistik\Apm\Sampling\On;
+use Vistik\Apm\Sampling\Chance;
 
 return [
     /*
@@ -14,19 +15,13 @@ return [
       |--------------------------------------------------------------------------
       | If you get alot of requests log logging could take up alot of disk space
       | sampling enables you to record only a potion of your requests.
-      | Out-of-the-box options: AlwaysOn, AlwaysOff, Change() takes a 0 to 100%
+      | Out-of-the-box options: Change() takes a argument 0 to 100.
+      | So you can sample let say 10% of your requests by using: new Chance(10)
       | You could implement your on sampler (lets say to only record requests from
       | from your enterprise customers)
       |--------------------------------------------------------------------------
     */
-    'sampler' => new AlwaysOn(),
-
-    /*
-      |--------------------------------------------------------------------------
-      | Check if queries are full scan queries. Default: false
-      |--------------------------------------------------------------------------
-    */
-    'trackFullScanQueries' => false,
+    'sampler' => new Chance(100),
 
     /*
       |--------------------------------------------------------------------------
