@@ -11,6 +11,11 @@
       "Vistik\\Apm\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "require": {},
   "require-dev": {
     "phpunit/phpunit": "^6.5",
