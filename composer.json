@@ -2,8 +2,12 @@
   "name": "vistik/apm",
   "authors": [
     {
-      "name": "vistik",
+      "name": "Visti Kløft",
       "email": "hr.kloft@gmail.com"
+    },
+    {
+      "name": "Peter Suhm",
+      "email": "peter@suhm.dk"
     }
   ],
   "autoload": {
