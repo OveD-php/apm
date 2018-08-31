@@ -1,6 +1,6 @@
 <?php
 
-namespace Vistik\Apm;
+namespace Vistik\Apm\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
