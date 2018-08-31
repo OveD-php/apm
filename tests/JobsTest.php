@@ -4,13 +4,12 @@ namespace Tests;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use Orchestra\Testbench\TestCase;
 use Ramsey\Uuid\Uuid;
 use Vistik\Apm\Jobs\StoreQueries;
 use Vistik\Apm\Jobs\StoreRequestData;
 use Vistik\Apm\Request\ApmContext;
 use Vistik\Apm\Request\RequestResponseData;
-use Vistik\Apm\Sampling\AlwaysOn;
+use Vistik\Apm\Sampling\Chance;
 
 class JobsTest extends ApmTestCase
 {
@@ -23,7 +22,7 @@ class JobsTest extends ApmTestCase
         Log::shouldReceive('debug')->twice();
 
         $this->app['config']->set('apm.saveQueriesToLog', true);
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
         $context->addQuery('select * from users', 3.45, [], 'testing');
         $context->addQuery('select * from users where id = ?', 1.23, [4], 'testing');
 

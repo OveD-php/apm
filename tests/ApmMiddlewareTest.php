@@ -10,7 +10,8 @@ use Tests\ApmTestCase;
 use Vistik\Apm\Middleware\ApmMiddleware;
 use Vistik\Apm\Models\Request as ApmRequest;
 use Vistik\Apm\Request\ApmContext;
-use Vistik\Apm\Sampling\AlwaysOn;
+use Vistik\Apm\Sampling\Chance;
+use Vistik\Apm\Sampling\On;
 
 class ApmMiddlewareTest extends ApmTestCase
 {
@@ -28,7 +29,7 @@ class ApmMiddlewareTest extends ApmTestCase
             ->once()
             ->andReturn($userId);
 
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
         $middleware = new ApmMiddleware($context);
 
         $request = Mockery::mock(Request::class);
@@ -81,7 +82,7 @@ class ApmMiddlewareTest extends ApmTestCase
             ->once()
             ->andReturn($userId);
 
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
         $context->addQuery('select * from users', 3.45, [], 'testing');
         $context->addQuery('select * from users where id = ?', 1.23, [4], 'testing');
 

@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Vistik\Apm\Commands\CleanUp;
 use Vistik\Apm\Listeners\QueryListener;
 use Vistik\Apm\Request\ApmContext;
-use Vistik\Apm\Sampling\AlwaysOn;
+use Vistik\Apm\Sampling\On;
 
 class ApmServiceProvider extends ServiceProvider
 {

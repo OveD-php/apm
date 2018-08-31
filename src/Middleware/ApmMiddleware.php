@@ -11,7 +11,6 @@ use Vistik\Apm\Jobs\StoreQueries;
 use Vistik\Apm\Jobs\StoreRequestData;
 use Vistik\Apm\Request\ApmContext;
 use Vistik\Apm\Request\RequestResponseData;
-use Vistik\Apm\Sampling\AlwaysOff;
 
 class ApmMiddleware
 {

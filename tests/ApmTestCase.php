@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Orchestra\Testbench\TestCase;
-use Vistik\Apm\Sampling\AlwaysOn;
+use Vistik\Apm\Sampling\Chance;
 use Vistik\Apm\ServiceProvider\ApmServiceProvider;
 
 class ApmTestCase extends TestCase
@@ -30,7 +30,7 @@ class ApmTestCase extends TestCase
         ]);
 
         $app['config']->set('apm', [
-            'sampler'   => new AlwaysOn(),
+            'sampler'   => new Chance(100),
         ]);
     }
 

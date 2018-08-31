@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use Vistik\Apm\Request\ApmContext;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase;
-use Vistik\Apm\Sampling\AlwaysOn;
+use Vistik\Apm\Request\ApmContext;
+use Vistik\Apm\Sampling\Chance;
 
 ;
 
@@ -17,7 +17,7 @@ class RequestContextTest extends TestCase
     public function request_context_has_an_uuid()
     {
         // Given
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
 
         // When
         $uuid = $context->getId();
@@ -30,7 +30,7 @@ class RequestContextTest extends TestCase
     public function request_context_has_started_at()
     {
         // Given
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
 
         // When
         $startedAt = $context->getStartedAt();
@@ -44,7 +44,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => false]);
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
 
         // When
         $time = rand(1, 666);
@@ -66,7 +66,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
 
         // When
         $id = rand(188, 881);
@@ -88,7 +88,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
 
         // When
         $id = rand(188, 881);
@@ -112,7 +112,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new ApmContext(new AlwaysOn());
+        $context = new ApmContext(new Chance(100));
 
         // When
         $context->addQuery("select * from \"users\" limit 1", 6.66, [], 'testing');
