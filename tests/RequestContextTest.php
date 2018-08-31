@@ -2,10 +2,13 @@
 
 namespace Tests\Unit;
 
-use Vistik\Apm\Request\RequestContext;
+use Vistik\Apm\Request\ApmContext;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Orchestra\Testbench\TestCase;;
+use Orchestra\Testbench\TestCase;
+use Vistik\Apm\Sampling\AlwaysOn;
+
+;
 
 class RequestContextTest extends TestCase
 {
@@ -14,7 +17,7 @@ class RequestContextTest extends TestCase
     public function request_context_has_an_uuid()
     {
         // Given
-        $context = new RequestContext();
+        $context = new ApmContext(new AlwaysOn());
 
         // When
         $uuid = $context->getId();
@@ -27,7 +30,7 @@ class RequestContextTest extends TestCase
     public function request_context_has_started_at()
     {
         // Given
-        $context = new RequestContext();
+        $context = new ApmContext(new AlwaysOn());
 
         // When
         $startedAt = $context->getStartedAt();
@@ -41,7 +44,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => false]);
-        $context = new RequestContext();
+        $context = new ApmContext(new AlwaysOn());
 
         // When
         $time = rand(1, 666);
@@ -63,7 +66,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new RequestContext();
+        $context = new ApmContext(new AlwaysOn());
 
         // When
         $id = rand(188, 881);
@@ -72,7 +75,7 @@ class RequestContextTest extends TestCase
         // Then
         $this->assertEquals([
             [
-                'query'      => "select * from \"users\" where \"id\" = '$id' limit 1",
+                'query'      => "select * from \"users\" where \"id\" = $id limit 1",
                 'time_ms'    => 6.66,
                 'bindings'   => [$id],
                 'connection' => 'testing'
@@ -85,7 +88,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new RequestContext();
+        $context = new ApmContext(new AlwaysOn());
 
         // When
         $id = rand(188, 881);
@@ -96,7 +99,7 @@ class RequestContextTest extends TestCase
         // Then
         $this->assertEquals([
             [
-                'query'      => "select * from \"users\" where \"id\" = '$id' and \"something\" != '$something' limit 1",
+                'query'      => "select * from \"users\" where \"id\" = $id and \"something\" != $something limit 1",
                 'time_ms'    => 6.66,
                 'bindings'   => [$id, $something],
                 'connection' => 'testing'
@@ -109,7 +112,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new RequestContext();
+        $context = new ApmContext(new AlwaysOn());
 
         // When
         $context->addQuery("select * from \"users\" limit 1", 6.66, [], 'testing');

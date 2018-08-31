@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Vistik\Apm\Commands\CleanUp;
 use Vistik\Apm\Listeners\QueryListener;
-use Vistik\Apm\Request\RequestContext;
+use Vistik\Apm\Request\ApmContext;
+use Vistik\Apm\Sampling\AlwaysOn;
 
 class ApmServiceProvider extends ServiceProvider
 {
@@ -30,7 +31,9 @@ class ApmServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(RequestContext::class);
+        $this->app->singleton(ApmContext::class, function(){
+            return new ApmContext(config('apm.sampler'));
+        });
 
         DB::connection()->enableQueryLog();
         Event::listen(QueryExecuted::class, QueryListener::class);
