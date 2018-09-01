@@ -13,7 +13,7 @@ use Vistik\Apm\Request\ApmContext;
 
 class StoreQueries implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use InteractsWithQueue, Queueable, SerializesModels;
     /**
      * @var ApmContext
      */
