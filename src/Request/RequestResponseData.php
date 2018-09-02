@@ -76,8 +76,19 @@ class RequestResponseData
      * @param array $headers
      * @param Carbon $requestedAt
      */
-    public function __construct(string $uuid, $userId, string $requestBody, string $method, string $url, string $ip, int $statusCode, string $responseBody, int $responseTimeMilliseconds, array $headers, Carbon $requestedAt)
-    {
+    public function __construct(
+        string $uuid,
+        $userId,
+        string $requestBody,
+        string $method,
+        string $url,
+        string $ip,
+        int $statusCode,
+        string $responseBody,
+        int $responseTimeMilliseconds,
+        array $headers,
+        Carbon $requestedAt
+    ) {
         $this->uuid = $uuid;
         $this->userId = $userId;
         $this->method = $method;
