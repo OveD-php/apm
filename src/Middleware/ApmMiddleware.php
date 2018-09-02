@@ -53,9 +53,7 @@ class ApmMiddleware
 
         $response = $next($request);
 
-        $reject = $this->shouldBeRejected($request, $filters);
-
-        if ($reject){
+        if ($this->shouldBeRejected($request, $filters)){
             return $response;
         }
 
@@ -122,7 +120,7 @@ class ApmMiddleware
     protected function shouldBeRejected($request, $filters): bool
     {
         return $filters->reduce(function (bool $carry, FilterInterface $filter) use ($request) {
-            return ($carry || $filter->shouldReject($request));
+            return $carry || $filter->shouldReject($request);
         }, false);
     }
 }
