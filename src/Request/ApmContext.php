@@ -3,6 +3,7 @@
 namespace OveD\Apm\Request;
 
 use Carbon\Carbon;
+use OveD\Apm\Filters\Filters;
 use Ramsey\Uuid\Uuid;
 use OveD\Apm\Sampling\SamplerInterface;
 
@@ -24,12 +25,16 @@ class ApmContext
      * @var SamplerInterface
      */
     private $sampler;
+    /**
+     * @var Filters
+     */
+    private $filters;
 
-    public function __construct(SamplerInterface $sampler)
+    public function __construct(Filters $filters)
     {
         $this->id = Uuid::uuid4();
         $this->startedAt = Carbon::now(config('apm.timezone', 'UTC'));
-        $this->sampler = $sampler;
+        $this->filters = $filters;
     }
 
     public function getId(): string
@@ -71,11 +76,6 @@ class ApmContext
 
         $sql = str_replace(['%', '?'], ['%%', "%s"], $query);
 
-//        $cleanedBindings = [];
-//        foreach ($bindings as $key => $binding) {
-//            $cleanedBindings[$key] = DB::connection()->getPdo()->quote($binding);
-//        }
-
         $full_sql = vsprintf($sql, $bindings);
 
         return $full_sql;
@@ -92,5 +92,13 @@ class ApmContext
     public function getSampler(): SamplerInterface
     {
         return $this->sampler;
+    }
+
+    /**
+     * @return Filters
+     */
+    public function getFilters(): Filters
+    {
+        return $this->filters;
     }
 }

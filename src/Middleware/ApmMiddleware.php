@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use OveD\Apm\Filters\FilterInterface;
 use OveD\Apm\Jobs\StoreQueries;
 use OveD\Apm\Jobs\StoreRequestData;
 use OveD\Apm\Request\ApmContext;
@@ -39,7 +40,8 @@ class ApmMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $sampler = $this->apmContext->getSampler();
+        $filters = $this->apmContext->getFilters();
+
         $requestId = $this->apmContext->getId();
 
         $monolog = Log::getMonolog();
@@ -51,7 +53,9 @@ class ApmMiddleware
 
         $response = $next($request);
 
-        if (!$sampler->shouldSample()) {
+        $reject = $this->shouldBeRejected($request, $filters);
+
+        if ($reject){
             return $response;
         }
 
@@ -108,5 +112,17 @@ class ApmMiddleware
         }
 
         return 0.0;
+    }
+
+    /**
+     * @param $request
+     * @param $filters
+     * @return bool
+     */
+    protected function shouldBeRejected($request, $filters): bool
+    {
+        return $filters->reduce(function (bool $carry, FilterInterface $filter) use ($request) {
+            return ($carry || $filter->shouldReject($request));
+        }, false);
     }
 }

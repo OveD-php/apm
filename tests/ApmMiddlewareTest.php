@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mockery;
+use OveD\Apm\Filters\Filters;
 use Tests\ApmTestCase;
 use OveD\Apm\Middleware\ApmMiddleware;
 use OveD\Apm\Models\Request as ApmRequest;
@@ -28,7 +29,7 @@ class ApmMiddlewareTest extends ApmTestCase
             ->once()
             ->andReturn($userId);
 
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
         $middleware = new ApmMiddleware($context);
 
         $request = Mockery::mock(Request::class);
@@ -81,7 +82,7 @@ class ApmMiddlewareTest extends ApmTestCase
             ->once()
             ->andReturn($userId);
 
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
         $context->addQuery('select * from users', 3.45, [], 'testing');
         $context->addQuery('select * from users where id = ?', 1.23, [4], 'testing');
 

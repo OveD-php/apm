@@ -30,7 +30,7 @@ class ApmTestCase extends TestCase
         ]);
 
         $app['config']->set('apm', [
-            'sampler'   => new Chance(100),
+            'filters'   => [],
         ]);
     }
 

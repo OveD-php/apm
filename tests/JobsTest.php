@@ -4,12 +4,12 @@ namespace Tests;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use OveD\Apm\Filters\Filters;
 use Ramsey\Uuid\Uuid;
 use OveD\Apm\Jobs\StoreQueries;
 use OveD\Apm\Jobs\StoreRequestData;
 use OveD\Apm\Request\ApmContext;
 use OveD\Apm\Request\RequestResponseData;
-use OveD\Apm\Sampling\Chance;
 
 class JobsTest extends ApmTestCase
 {
@@ -22,7 +22,7 @@ class JobsTest extends ApmTestCase
         Log::shouldReceive('debug')->twice();
 
         $this->app['config']->set('apm.saveQueriesToLog', true);
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
         $context->addQuery('select * from users', 3.45, [], 'testing');
         $context->addQuery('select * from users where id = ?', 1.23, [4], 'testing');
 
