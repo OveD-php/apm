@@ -1,15 +1,14 @@
 <?php
 
-namespace Vistik\Apm\ServiceProvider;
+namespace OveD\Apm\ServiceProvider;
 
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Vistik\Apm\Commands\CleanUp;
-use Vistik\Apm\Listeners\QueryListener;
-use Vistik\Apm\Request\ApmContext;
-use Vistik\Apm\Sampling\On;
+use OveD\Apm\Commands\CleanUp;
+use OveD\Apm\Listeners\QueryListener;
+use OveD\Apm\Request\ApmContext;
 
 class ApmServiceProvider extends ServiceProvider
 {

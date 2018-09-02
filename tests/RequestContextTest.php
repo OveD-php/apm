@@ -5,8 +5,8 @@ namespace Tests\Unit;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase;
-use Vistik\Apm\Request\ApmContext;
-use Vistik\Apm\Sampling\Chance;
+use OveD\Apm\Request\ApmContext;
+use OveD\Apm\Sampling\Chance;
 
 ;
 

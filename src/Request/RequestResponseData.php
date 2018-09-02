@@ -1,6 +1,6 @@
 <?php
 
-namespace Vistik\Apm\Request;
+namespace OveD\Apm\Request;
 
 use Carbon\Carbon;
 

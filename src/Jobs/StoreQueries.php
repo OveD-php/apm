@@ -1,14 +1,14 @@
 <?php
 
-namespace Vistik\Apm\Jobs;
+namespace OveD\Apm\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Vistik\Apm\Models\Query;
-use Vistik\Apm\Request\ApmContext;
+use OveD\Apm\Models\Query;
+use OveD\Apm\Request\ApmContext;
 
 class StoreQueries implements ShouldQueue
 {

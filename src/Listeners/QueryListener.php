@@ -1,9 +1,9 @@
 <?php
 
-namespace Vistik\Apm\Listeners;
+namespace OveD\Apm\Listeners;
 
 use Illuminate\Database\Events\QueryExecuted;
-use Vistik\Apm\Request\ApmContext;
+use OveD\Apm\Request\ApmContext;
 
 class QueryListener
 {

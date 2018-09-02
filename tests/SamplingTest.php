@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Vistik\Apm\Sampling\Chance;
+use OveD\Apm\Sampling\Chance;
 
 class SamplingTest extends ApmTestCase
 {

@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mockery;
 use Tests\ApmTestCase;
-use Vistik\Apm\Middleware\ApmMiddleware;
-use Vistik\Apm\Models\Request as ApmRequest;
-use Vistik\Apm\Request\ApmContext;
-use Vistik\Apm\Sampling\Chance;
-use Vistik\Apm\Sampling\On;
+use OveD\Apm\Middleware\ApmMiddleware;
+use OveD\Apm\Models\Request as ApmRequest;
+use OveD\Apm\Request\ApmContext;
+use OveD\Apm\Sampling\Chance;
 
 class ApmMiddlewareTest extends ApmTestCase
 {

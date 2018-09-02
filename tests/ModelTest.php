@@ -4,8 +4,8 @@ namespace Tests;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Vistik\Apm\Models\Query;
-use Vistik\Apm\Models\Request;
+use OveD\Apm\Models\Query;
+use OveD\Apm\Models\Request;
 
 class ModelTest extends ApmTestCase
 {

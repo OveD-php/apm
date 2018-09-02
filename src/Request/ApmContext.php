@@ -1,10 +1,10 @@
 <?php
 
-namespace Vistik\Apm\Request;
+namespace OveD\Apm\Request;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Vistik\Apm\Sampling\SamplerInterface;
+use OveD\Apm\Sampling\SamplerInterface;
 
 class ApmContext
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Vistik\Apm\Reports;
+namespace OveD\Apm\Reports;
 
-use Vistik\Apm\Models\Request;
+use OveD\Apm\Models\Request;
 
 class RequestReports
 {

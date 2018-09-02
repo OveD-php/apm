@@ -5,11 +5,11 @@ namespace Tests;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
-use Vistik\Apm\Jobs\StoreQueries;
-use Vistik\Apm\Jobs\StoreRequestData;
-use Vistik\Apm\Request\ApmContext;
-use Vistik\Apm\Request\RequestResponseData;
-use Vistik\Apm\Sampling\Chance;
+use OveD\Apm\Jobs\StoreQueries;
+use OveD\Apm\Jobs\StoreRequestData;
+use OveD\Apm\Request\ApmContext;
+use OveD\Apm\Request\RequestResponseData;
+use OveD\Apm\Sampling\Chance;
 
 class JobsTest extends ApmTestCase
 {

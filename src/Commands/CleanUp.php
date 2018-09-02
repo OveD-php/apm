@@ -1,12 +1,12 @@
 <?php
 
-namespace Vistik\Apm\Commands;
+namespace OveD\Apm\Commands;
 
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Console\Command;
-use Vistik\Apm\Models\Query;
-use Vistik\Apm\Models\Request;
+use OveD\Apm\Models\Query;
+use OveD\Apm\Models\Request;
 
 class CleanUp extends Command
 {

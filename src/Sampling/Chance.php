@@ -1,6 +1,6 @@
 <?php
 
-namespace Vistik\Apm\Sampling;
+namespace OveD\Apm\Sampling;
 
 class Chance implements SamplerInterface
 {

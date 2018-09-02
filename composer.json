@@ -1,5 +1,5 @@
 {
-  "name": "vistik/apm",
+  "name": "OveD/apm",
   "authors": [
     {
       "name": "Visti Kløft",
@@ -12,7 +12,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Vistik\\Apm\\": "src/"
+      "OveD\\Apm\\": "src/"
     }
   },
   "autoload-dev": {
@@ -30,7 +30,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Vistik\\Apm\\ServiceProvider\\ApmServiceProvider"
+        "OveD\\Apm\\ServiceProvider\\ApmServiceProvider"
       ]
     }
   }

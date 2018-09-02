@@ -4,10 +4,10 @@ namespace Tests;
 
 use Illuminate\Support\Carbon;
 use Ramsey\Uuid\Uuid;
-use Vistik\Apm\Models\Query;
-use Vistik\Apm\Models\Request;
-use Vistik\Apm\Reports\QueryReports;
-use Vistik\Apm\Reports\RequestReports;
+use OveD\Apm\Models\Query;
+use OveD\Apm\Models\Request;
+use OveD\Apm\Reports\QueryReports;
+use OveD\Apm\Reports\RequestReports;
 
 class QueryReportTest extends ApmTestCase
 {

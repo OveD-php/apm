@@ -3,8 +3,8 @@
 namespace Tests;
 
 use Orchestra\Testbench\TestCase;
-use Vistik\Apm\Sampling\Chance;
-use Vistik\Apm\ServiceProvider\ApmServiceProvider;
+use OveD\Apm\Sampling\Chance;
+use OveD\Apm\ServiceProvider\ApmServiceProvider;
 
 class ApmTestCase extends TestCase
 {
