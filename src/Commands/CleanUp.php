@@ -34,6 +34,5 @@ class CleanUp extends Command
 
         Request::where('requested_at', '<', $deleteOlderThan)->delete();
         Query::where('created_at', '<', $deleteOlderThan)->delete();
-
     }
 }
