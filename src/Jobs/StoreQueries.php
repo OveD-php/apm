@@ -4,7 +4,6 @@ namespace Vistik\Apm\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
@@ -39,7 +38,7 @@ class StoreQueries implements ShouldQueue
         $queries = $this->apmContext->getQueries();
 
         foreach ($queries as $query) {
-            if (config('apm.saveQueriesToLog', false)){
+            if (config('apm.saveQueriesToLog', false)) {
                 Log::debug(sprintf("Query(%s, time: %sms): %s", $query['connection'], $query['time_ms'], $query['query']));
             }
             Query::create([

@@ -3,7 +3,6 @@
 namespace Vistik\Apm\Request;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 use Vistik\Apm\Sampling\SamplerInterface;
 
@@ -55,19 +54,6 @@ class ApmContext
         ];
     }
 
-    public function getQueries(): array
-    {
-        return $this->queries;
-    }
-
-    /**
-     * @return SamplerInterface
-     */
-    public function getSampler(): SamplerInterface
-    {
-        return $this->sampler;
-    }
-
     /**
      * @param string $query
      * @param array $bindings
@@ -93,5 +79,18 @@ class ApmContext
         $full_sql = vsprintf($sql, $bindings);
 
         return $full_sql;
+    }
+
+    public function getQueries(): array
+    {
+        return $this->queries;
+    }
+
+    /**
+     * @return SamplerInterface
+     */
+    public function getSampler(): SamplerInterface
+    {
+        return $this->sampler;
     }
 }

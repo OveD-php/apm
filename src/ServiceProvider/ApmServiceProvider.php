@@ -17,10 +17,10 @@ class ApmServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../config/apm.php' => config_path('apm.php'),
+            __DIR__ . '/../../config/apm.php' => config_path('apm.php'),
         ]);
 
-        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -31,7 +31,7 @@ class ApmServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(ApmContext::class, function(){
+        $this->app->singleton(ApmContext::class, function () {
             return new ApmContext(config('apm.sampler'));
         });
 

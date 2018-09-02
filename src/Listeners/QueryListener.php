@@ -2,8 +2,8 @@
 
 namespace Vistik\Apm\Listeners;
 
-use Vistik\Apm\Request\ApmContext;
 use Illuminate\Database\Events\QueryExecuted;
+use Vistik\Apm\Request\ApmContext;
 
 class QueryListener
 {

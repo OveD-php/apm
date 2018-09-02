@@ -45,12 +45,13 @@ class ApmMiddleware
         $monolog = Log::getMonolog();
         $monolog->pushProcessor(function ($record) use ($requestId) {
             $record['extra']['request_id'] = $requestId;
+
             return $record;
         });
 
         $response = $next($request);
 
-        if (!$sampler->shouldSample()){
+        if (!$sampler->shouldSample()) {
             return $response;
         }
 

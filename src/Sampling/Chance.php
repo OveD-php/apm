@@ -17,7 +17,7 @@ class Chance implements SamplerInterface
     public function shouldSample(): bool
     {
         $random = mt_rand(1, 100);
-        if ($random <= $this->chance){
+        if ($random <= $this->chance) {
             return true;
         }
 

@@ -2,14 +2,13 @@
 
 namespace Vistik\Apm\Jobs;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Vistik\Apm\Models\Request;
 use Vistik\Apm\Request\RequestResponseData;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class StoreRequestData implements ShouldQueue
 {
@@ -36,7 +35,7 @@ class StoreRequestData implements ShouldQueue
      */
     public function handle()
     {
-        if (config('apm.saveRequestsToLog', false)){
+        if (config('apm.saveRequestsToLog', false)) {
             Log::debug(sprintf("Request (%sms): %s [%s]: %s", $this->data->getResponseTimeMilliseconds(), $this->data->getStatusCode(), $this->data->getMethod(), $this->data->getUrl()));
         }
         Request::create([
