@@ -3,7 +3,6 @@
 
 namespace OveD\Apm\Filters;
 
-
 use Illuminate\Http\Request;
 
 interface FilterInterface

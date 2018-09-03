@@ -53,7 +53,7 @@ class ApmMiddleware
 
         $response = $next($request);
 
-        if ($this->shouldBeRejected($request, $filters)){
+        if ($this->shouldBeRejected($request, $filters)) {
             return $response;
         }
 
