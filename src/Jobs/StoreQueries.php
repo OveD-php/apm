@@ -39,7 +39,12 @@ class StoreQueries implements ShouldQueue
 
         foreach ($queries as $query) {
             if (config('apm.saveQueriesToLog', false)) {
-                Log::debug(sprintf("Query(%s, time: %sms): %s", $query['connection'], $query['time_ms'], $query['query']));
+                Log::debug(sprintf(
+                    "Query(%s, time: %sms): %s",
+                    $query['connection'],
+                    $query['time_ms'],
+                    $query['query']
+                ));
             }
             Query::create([
                 'sql'        => $query['query'],

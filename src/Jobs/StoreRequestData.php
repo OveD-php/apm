@@ -36,7 +36,13 @@ class StoreRequestData implements ShouldQueue
     public function handle()
     {
         if (config('apm.saveRequestsToLog', false)) {
-            Log::debug(sprintf("Request (%sms): %s [%s]: %s", $this->data->getResponseTimeMilliseconds(), $this->data->getStatusCode(), $this->data->getMethod(), $this->data->getUrl()));
+            Log::debug(sprintf(
+                "Request (%sms): %s [%s]: %s",
+                $this->data->getResponseTimeMilliseconds(),
+                $this->data->getStatusCode(),
+                $this->data->getMethod(),
+                $this->data->getUrl()
+            ));
         }
         Request::create([
             'uuid'             => $this->data->getUuid(),
