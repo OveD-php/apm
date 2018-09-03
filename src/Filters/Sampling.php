@@ -20,9 +20,9 @@ class Sampling implements FilterInterface
     {
         $random = mt_rand(1, 100);
         if ($random <= $this->chance) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

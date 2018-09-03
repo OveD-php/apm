@@ -34,7 +34,7 @@ class FilterTest extends ApmTestCase
         // When
         $mock = Mockery::mock(Request::class);
         for ($i =0; $i < 10000; $i++){
-            $this->assertFalse($sampling->shouldReject($mock));
+            $this->assertTrue($sampling->shouldReject($mock));
         }
         // Then
     }
@@ -48,7 +48,7 @@ class FilterTest extends ApmTestCase
         // When
         $mock = Mockery::mock(Request::class);
         for ($i =0; $i < 10000; $i++){
-            $this->assertTrue($sampling->shouldReject($mock));
+            $this->assertFalse($sampling->shouldReject($mock));
         }
         // Then
     }
