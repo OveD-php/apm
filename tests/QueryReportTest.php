@@ -16,7 +16,7 @@ class QueryReportTest extends ApmTestCase
     public function can_get_top_2_slowest_queries()
     {
         // Given
-        $this->artisan('migrate', ['--database' => 'testbench']);
+        $this->migrate();
 
         $requestId1 = Uuid::uuid4()->toString();
         Request::create([
@@ -77,7 +77,7 @@ class QueryReportTest extends ApmTestCase
         ]);
 
         $report = new QueryReports();
-        $queries = $report->getTopSlowest(2);
+        $queries = $report->getSlowest(2);
 
         $this->assertEquals([$q2->id, $q1->id], $queries->pluck('id')->toArray());
     }

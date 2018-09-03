@@ -7,7 +7,7 @@ use OveD\Apm\Models\Query;
 class QueryReports
 {
 
-    public function getTopSlowest(int $count)
+    public function getSlowest(int $count)
     {
         $queries = Query
             ::with('request')

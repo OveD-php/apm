@@ -1,8 +1,10 @@
 <?php
 
-namespace OveD\Apm\Sampling;
+namespace OveD\Apm\Filters;
 
-class Chance implements SamplerInterface
+use Illuminate\Http\Request;
+
+class Sampling implements FilterInterface
 {
     /**
      * @var int
@@ -14,13 +16,13 @@ class Chance implements SamplerInterface
         $this->chance = $chance;
     }
 
-    public function shouldSample(): bool
+    public function shouldReject(Request $request): bool
     {
         $random = mt_rand(1, 100);
         if ($random <= $this->chance) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

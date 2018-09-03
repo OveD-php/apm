@@ -1,7 +1,7 @@
 <?php
 
-use Vistik\Apm\Sampling\On;
-use Vistik\Apm\Sampling\Chance;
+use OveD\Apm\Filters\NoOptionRequests;
+use OveD\Apm\Filters\Sampling;
 
 return [
     /*
@@ -15,13 +15,19 @@ return [
       |--------------------------------------------------------------------------
       | If you get alot of requests log logging could take up alot of disk space
       | sampling enables you to record only a potion of your requests.
-      | Out-of-the-box options: Change() takes a argument 0 to 100.
-      | So you can sample let say 10% of your requests by using: new Chance(10)
-      | You could implement your on sampler (lets say to only record requests from
+      | Out-of-the-box options:
+      | - Sampling() takes a argument 0 to 100.
+      | So you can sample let say 10% of your requests by using: new Sampling(10)
+      | - NoOptionRequests() dont record anything on Options requests
+      |
+      | You could implement your own filters e.g. lets say to only record requests from
       | from your enterprise customers)
       |--------------------------------------------------------------------------
     */
-    'sampler' => new Chance(100),
+    'filters' => [
+        new Sampling(100),
+        new NoOptionRequests(),
+    ],
 
     /*
       |--------------------------------------------------------------------------

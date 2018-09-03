@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase;
+use OveD\Apm\Filters\Filters;
 use OveD\Apm\Request\ApmContext;
 use OveD\Apm\Sampling\Chance;
 
@@ -17,7 +18,7 @@ class RequestContextTest extends TestCase
     public function request_context_has_an_uuid()
     {
         // Given
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
 
         // When
         $uuid = $context->getId();
@@ -30,7 +31,7 @@ class RequestContextTest extends TestCase
     public function request_context_has_started_at()
     {
         // Given
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
 
         // When
         $startedAt = $context->getStartedAt();
@@ -44,7 +45,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => false]);
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
 
         // When
         $time = rand(1, 666);
@@ -66,7 +67,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
 
         // When
         $id = rand(188, 881);
@@ -88,7 +89,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
 
         // When
         $id = rand(188, 881);
@@ -112,7 +113,7 @@ class RequestContextTest extends TestCase
     {
         // Given
         config(['apm.showBindings' => true]);
-        $context = new ApmContext(new Chance(100));
+        $context = new ApmContext(new Filters([]));
 
         // When
         $context->addQuery("select * from \"users\" limit 1", 6.66, [], 'testing');

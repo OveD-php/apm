@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use OveD\Apm\Commands\CleanUp;
+use OveD\Apm\Commands\ShowSlowestRequests;
+use OveD\Apm\Filters\Filters;
 use OveD\Apm\Listeners\QueryListener;
 use OveD\Apm\Request\ApmContext;
 
@@ -23,7 +25,7 @@ class ApmServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                CleanUp::class,
+                CleanUp::class
             ]);
         }
     }
@@ -31,7 +33,9 @@ class ApmServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(ApmContext::class, function () {
-            return new ApmContext(config('apm.sampler'));
+            return new ApmContext(
+                new Filters(config('apm.filters', []))
+            );
         });
 
         DB::connection()->enableQueryLog();
