@@ -87,8 +87,8 @@ class RequestResponseData
         string $responseBody,
         int $responseTimeMilliseconds,
         array $headers,
-        Carbon $requestedAt)
-    {
+        Carbon $requestedAt
+    ) {
         $this->uuid = $uuid;
         $this->userId = $userId;
         $this->method = $method;
